@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  elasticsearch:
+    image: elasticsearch:8.19.3
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+      - xpack.security.enabled=false  # Disable security for development
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/logs:/usr/share/elasticsearch/logs
+  fluentbit:
+    build: .
+    ports:
+      - "8888:8888"
+      - "24224:24224"
+      - "24224:24224/udp"
+    depends_on:
+      - elasticsearch
