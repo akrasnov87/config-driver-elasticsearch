@@ -18,12 +18,10 @@ done
 if ! curl -s -XGET localhost:9200/logs | grep -q '"status":404'; then
   echo "Index already exists, skipping creation"
 else
-  echo "Creating index..."
-  curl -X PUT -H "Content-Type: application/json" -d '{"settings":   {"number_of_shards":1,"number_of_replicas":0}}' "localhost:9200/logs"
-
   echo "Creating mapping..."
   curl -X PUT -H "Content-Type: application/json" -d '
   {
+    "settings":   {"number_of_shards":1,"number_of_replicas":0},
     "mappings": {
       "properties": {
           "@timestamp":    { "type": "date_nanos" },
@@ -50,7 +48,9 @@ else
         }
     }
   }' "localhost:9200/logs"
-
+  
+  echo ""
+  
   echo "Index created successfully"
 fi
 

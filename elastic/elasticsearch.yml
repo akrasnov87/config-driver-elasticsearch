@@ -1,0 +1,18 @@
+cluster.name: "docker-elastic-custom"
+network.host: 0.0.0.0
+
+# Discovery settings
+discovery.type: single-node
+
+# Security settings (для Elasticsearch 8+)
+xpack.security.enabled: false
+xpack.security.authc.api_key.enabled: false
+
+# SSL settings (опционально)
+xpack.security.http.ssl.enabled: false
+
+# Monitoring settings
+xpack.monitoring.collection.enabled: true
+
+# Memory settings
+bootstrap.memory_lock: true

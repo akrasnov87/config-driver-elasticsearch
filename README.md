@@ -1,10 +1,22 @@
 ## Описание
 
-Пример взаимодействия elasticsearch и fluent-bit
+Пример взаимодействия `elasticsearch` и `fluent-bit`.
+
+### run
 
 <pre>
 docker compose up
 </pre>
+
+или
+
+<pre>
+docker compose -f docker-compose.dev.yml up
+</pre>
+
+### Переменные
+
+* `ES_INIT_LOGS` - признак создания таблицы логов (индекса `logs`) по умолчанию при разворачивании решения.
 
 ## Пример
 
@@ -56,3 +68,9 @@ curl -X POST -H "Content-Type: application/json" -d '
 	"message":"Hello World"
 }' "localhost:9200/logs/_create/1"
 </pre>
+
+## Возможые ошибки
+
+При подключении `volume` к `elasticsearch` требуется изменить права для папки `esdata`
+
+`chmod -R 777 esdata`

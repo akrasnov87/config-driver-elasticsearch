@@ -1,0 +1,10 @@
+# Custom JVM settings
+-Xms512m
+-Xmx512m
+
+# Garbage collection settings
+-XX:+UseG1GC
+-XX:MaxGCPauseMillis=200
+
+# Debug settings (optional)
+# -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
