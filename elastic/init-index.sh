@@ -44,7 +44,8 @@ else
           "srcIp2v4":   { "type": "short"  },
           "srcIp3v4":   { "type": "short"  },
           "dstHost":   { "type": "text"  },
-          "userExtId":   { "type": "text"  }
+          "userExtId":   { "type": "text"  },
+          "other":   { "type": "text", "index": false  }
         }
     }
   }' "localhost:9200/logs"
