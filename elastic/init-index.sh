@@ -45,6 +45,8 @@ else
           "srcIp3v4":   { "type": "short"  },
           "dstHost":   { "type": "text"  },
           "userExtId":   { "type": "text"  },
+          "size":   { "type": "text", "index": false  },
+          "duration":   { "type": "text", "index": false  },
           "other":   { "type": "text", "index": false  }
         }
     }
