@@ -5,7 +5,7 @@
             "@timestamp":    { "type": "date_nanos" },
             "level":  { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
             "userId":   { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
-            "traceId":   { "type": "text"  },
+            "traceId":   { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
             "host":   { "type": "text"  },
             "requestMethod":   { "type": "text"  },
             "requestStatusCode":   { "type": "text"  },
