@@ -47,7 +47,8 @@ else
           "userExtId":   { "type": "text"  },
           "size":   { "type": "text", "index": false  },
           "duration":   { "type": "text", "index": false  },
-          "other":   { "type": "text", "index": false  }
+          "other":   { "type": "text", "index": false  },
+          "clientDate":   { "type": "date_nanos" }
         }
     }
   }' "localhost:9200/logs"
