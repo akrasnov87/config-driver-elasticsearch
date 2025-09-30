@@ -14,48 +14,31 @@ until curl -s localhost:9200/_cluster/health | grep -q '"status":"green"'; do
   sleep 2
 done
 
-# Создаем индекс с маппингом
-if ! curl -s -XGET localhost:9200/logs | grep -q '"status":404'; then
-  echo "Index already exists, skipping creation"
-else
-  echo "Creating mapping..."
-  curl -X PUT -H "Content-Type: application/json" -d '
-  {
-    "settings":   {"number_of_shards":1,"number_of_replicas":0},
-    "mappings": {
-      "properties": {
-          "@timestamp":    { "type": "date_nanos" },
-          "level":  { "type": "keyword"  },
-          "userId":   { "type": "keyword"  },
-          "traceId":   { "type": "text"  },
-          "host":   { "type": "text"  },
-          "requestMethod":   { "type": "keyword"  },
-          "requestStatusCode":   { "type": "keyword"  },
-          "controller":   { "type": "keyword"  },
-          "function":   { "type": "keyword"  },
-          "requestUrl":   { "type": "text"  },
-          "requestBody":   { "type": "text"  },
-          "threadId":   { "type": "keyword"  },
-          "logger":   { "type": "keyword"  },
-          "message":   { "type": "text"  },
-          "exception":   { "type": "text"  },
-          "srcIp0v4":   { "type": "short"  },
-          "srcIp1v4":   { "type": "short"  },
-          "srcIp2v4":   { "type": "short"  },
-          "srcIp3v4":   { "type": "short"  },
-          "dstHost":   { "type": "text"  },
-          "userExtId":   { "type": "text"  },
-          "size":   { "type": "text", "index": false  },
-          "duration":   { "type": "text", "index": false  },
-          "other":   { "type": "text", "index": false  },
-          "clientDate":   { "type": "date_nanos" }
-        }
-    }
-  }' "localhost:9200/logs"
-  
-  echo ""
-  
-  echo "Index created successfully"
-fi
+# Все файлы в массив
+files=$(find /tmp/idx/ -type f -name "*.json")
+echo "Количество файлов: ${#files[@]}"
+
+# Вывод всех файлов
+for file in "${files[@]}"; do
+  filename="${file##*/}"      # Убираем путь
+  name="${filename%.*}"       # Убираем расширение
+
+  content=$(cat $file)
+
+  echo "$content"
+
+  # Создаем индекс с маппингом
+  if ! curl -s -XGET localhost:9200/$name | grep -q '"status":404'; then
+    echo "Index $name already exists, skipping creation"
+  else
+    echo "Creating mapping..."
+    curl -X PUT -H "Content-Type: application/json" -d "$content" "localhost:9200/$name"
+    
+    echo ""
+    
+    echo "Index $name created successfully"
+  fi
+done
+
 
 echo "Initialization completed"

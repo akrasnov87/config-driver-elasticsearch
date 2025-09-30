@@ -1,0 +1,32 @@
+{
+    "settings":   {"number_of_shards":1,"number_of_replicas":0},
+    "mappings": {
+        "properties": {
+            "@timestamp":    { "type": "date_nanos" },
+            "level":  { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
+            "userId":   { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
+            "traceId":   { "type": "text"  },
+            "host":   { "type": "text"  },
+            "requestMethod":   { "type": "text"  },
+            "requestStatusCode":   { "type": "text"  },
+            "controller":   { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
+            "function":   { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
+            "requestUrl":   { "type": "text"  },
+            "requestBody":   { "type": "text"  },
+            "threadId":   { "type": "text" },
+            "logger":   { "type": "text", "fields": { "keyword": { "type": "keyword" } } },
+            "message":   { "type": "text"  },
+            "exception":   { "type": "text"  },
+            "srcIp0v4":   { "type": "short"  },
+            "srcIp1v4":   { "type": "short"  },
+            "srcIp2v4":   { "type": "short"  },
+            "srcIp3v4":   { "type": "short"  },
+            "dstHost":   { "type": "text"  },
+            "userExtId":   { "type": "text"  },
+            "size":   { "type": "text", "index": false  },
+            "duration":   { "type": "text", "index": false  },
+            "other":   { "type": "text", "index": false  },
+            "clientDate":   { "type": "date_nanos" }
+        }
+    }
+}

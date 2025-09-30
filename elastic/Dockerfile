@@ -19,6 +19,8 @@ COPY certs/ /usr/share/elasticsearch/config/certs/
 # Копируем плагины (если есть)
 COPY plugins/ /tmp/plugins/
 
+COPY idx/ /tmp/idx/
+
 # Установка плагинов
 RUN if [ -d /tmp/plugins ] && [ "$(ls -A /tmp/plugins)" ]; then \
     for plugin in /tmp/plugins/*.zip; do \
@@ -41,6 +43,8 @@ USER elasticsearch
 
 # Экспоз порты
 EXPOSE 9200 9300
+
+VOLUME ["/tmp/idx"]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["eswrapper"]
